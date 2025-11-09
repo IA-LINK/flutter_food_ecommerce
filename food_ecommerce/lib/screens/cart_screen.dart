@@ -13,45 +13,62 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Your Cart')),
-      body: cartItems.isEmpty
-          ? const Center(child: Text('No items in cart'))
+      body: cart.itemCount == 0
+          ? const Center(child: Text('Your cart is empty'))
           : Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) {
-                final item = cartItems[index];
-                return ListTile(
-                  leading: Image.network(item.imageUrl, width: 50),
-                  title: Text(item.name),
-                  subtitle: Text('₦${item.price.toStringAsFixed(2)}'),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.remove_circle_outline),
-                    onPressed: () => cart.removeItem(item.id),
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
               children: [
-                Text('Total: ₦${cart.totalAmount.toStringAsFixed(2)}',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => const CheckoutScreen()));
-                  },
-                  child: const Text('Proceed to Checkout'),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: cart.itemCount,
+                    itemBuilder: (ctx, i) {
+                      final item = cartItems[i];
+                      return Card(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
+                        child: ListTile(
+                          leading: const Icon(Icons.fastfood, color: Colors.green),
+                          title: Text(item.name),
+                          subtitle: Text(
+                              '₦${item.price.toStringAsFixed(2)} x ${item.quantity}'),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              cart.removeItem(cart.cartItems.keys.toList()[i]);
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total: ₦${cart.totalAmount.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const CheckoutScreen()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green),
+                        child: const Text('Checkout'),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

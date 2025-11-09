@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     radius: 8,
                     backgroundColor: Colors.red,
                     child: Text(
-                      cart.cartItems.length.toString(),
+                      cart.itemCount.toString(),
                       style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),
@@ -58,51 +58,56 @@ class _HomeScreenState extends State<HomeScreen> {
       body: productProvider.products.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : GridView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: productProvider.products.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 0.75,
-        ),
-        itemBuilder: (context, index) {
-          final Product product = productProvider.products[index];
-          return GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ProductScreen(product: product),
+              padding: const EdgeInsets.all(10),
+              itemCount: productProvider.products.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 0.75,
               ),
+              itemBuilder: (context, index) {
+                final Product product = productProvider.products[index];
+                return GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProductScreen(product: product),
+                    ),
+                  ),
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Image.network(product.imageUrl, fit: BoxFit.cover),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            product.name,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text('₦${product.price.toStringAsFixed(2)}'),
+                        ElevatedButton(
+                          onPressed: () {
+                            cart.addItem(product);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Added to cart")),
+                            );
+                          },
+                          child: const Text('Add to Cart'),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-            child: Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Image.network(product.imageUrl, fit: BoxFit.cover),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(product.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                  Text('₦${product.price.toStringAsFixed(2)}'),
-                  ElevatedButton(
-                    onPressed: () {
-                      cart.addItem(product);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Added to cart")),
-                      );
-                    },
-                    child: const Text('Add to Cart'),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
     );
   }
 }
