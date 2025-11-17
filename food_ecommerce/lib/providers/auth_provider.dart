@@ -4,12 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthProvider extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  User? get currentUser => _auth.currentUser;
+  // Stream for listening to auth changes
+  Stream<User?> get userChanges => _auth.userChanges();
 
   // User login
   Future<void> login(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
@@ -23,6 +27,7 @@ class AuthProvider extends ChangeNotifier {
         email: email,
         password: password,
       );
+
       await credential.user!.updateDisplayName(name);
       notifyListeners();
     } on FirebaseAuthException catch (e) {
@@ -30,5 +35,9 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Stream<User?> get userChanges => _auth.userChanges();
+  // Optional logout method
+  Future<void> logout() async {
+    await _auth.signOut();
+    notifyListeners();
+  }
 }

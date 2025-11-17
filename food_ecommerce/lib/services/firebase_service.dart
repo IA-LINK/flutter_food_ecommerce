@@ -5,9 +5,16 @@ class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<List<Product>> fetchProducts() async {
-    final snapshot = await _firestore.collection('products').get();
-    return snapshot.docs
-        .map((doc) => Product.fromJson(doc.data()))
-        .toList();
+    try {
+      final snapshot = await _firestore.collection('products').get();
+      return snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        // Safely parse each product
+        return Product.fromJson(data, doc.id);
+      }).toList();
+    } catch (e) {
+      print("Error in FirebaseService.fetchProducts: $e");
+      return []; // Return empty list instead of crashing
+    }
   }
 }

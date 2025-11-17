@@ -9,6 +9,7 @@ import 'providers/cart_provider.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
