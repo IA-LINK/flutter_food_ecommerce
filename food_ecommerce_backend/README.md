@@ -1,16 +1,27 @@
-# food_ecommerce_backend
+# 🛒 Flutter Food Ecommerce App
 
-A new Flutter project.
+A modern food delivery ecommerce application built using **Flutter**, **Firebase**, and **Clean Architecture**.
 
-## Getting Started
+## 🚀 Features (Planned)
+- User authentication
+- Product listings
+- Add to cart
+- Realtime cart updates
+- Checkout & Orders
+- Payment integration
+- Elegant UI/UX
 
-This project is a starting point for a Flutter application.
+## 🧱 Tech Stack
+- Flutter (Dart)
+- Firebase Authentication
+- Cloud Firestore
+- Firebase Storage
+- Cloud Functions
+- State Management (GetX/Provider/Riverpod)
+- REST API principles
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📦 Project Setup
+```sh
+git clone <repo>
+cd food_ecommerce
+flutter pub get
