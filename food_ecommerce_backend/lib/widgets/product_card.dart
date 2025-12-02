@@ -1,18 +1,5 @@
 import 'package:flutter/material.dart';
-
-class ProductModel {
-  final String id;
-  final String title;
-  final String imageUrl;
-  final double price;
-
-  ProductModel({
-    required this.id,
-    required this.title,
-    required this.imageUrl,
-    required this.price,
-  });
-}
+import 'package:food_ecommerce_backend/data/models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
@@ -30,14 +17,22 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // image
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-              child: Image.network(product.imageUrl, height: 140, width: double.infinity, fit: BoxFit.cover),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(10)),
+              child: Image.network(
+                product.imageUrl,
+                height: 140,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(product.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+              child: Text(
+                product.title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
