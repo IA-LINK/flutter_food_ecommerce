@@ -1,43 +1,36 @@
+// lib/pages/checkout_screen.dart
 import 'package:flutter/material.dart';
 
 class CheckoutScreen extends StatelessWidget {
-  static const routeName = '/checkout';
-  const CheckoutScreen({super.key});
+  const CheckoutScreen({Key? key}) : super(key: key);
+
+  static const String routeName = '/checkout';
 
   @override
   Widget build(BuildContext context) {
-    // demo form only
     return Scaffold(
-      appBar: AppBar(title: const Text('Checkout')),
+      appBar: AppBar(
+        title: const Text('Checkout'),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextFormField(decoration: const InputDecoration(labelText: 'Full name')),
-            const SizedBox(height: 8),
-            TextFormField(decoration: const InputDecoration(labelText: 'Phone')),
-            const SizedBox(height: 8),
-            TextFormField(decoration: const InputDecoration(labelText: 'Address')),
-            const SizedBox(height: 8),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Payment method'),
-              items: const [
-                DropdownMenuItem(value: 'card', child: Text('Card (Stripe)')),
-                DropdownMenuItem(value: 'cod', child: Text('Cash on delivery')),
-              ],
-              onChanged: (_) {},
+            const Text('Checkout Form Placeholder'),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: const InputDecoration(labelText: 'Name'),
             ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: perform payment -> create order
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Order placed (demo)')));
-                  Navigator.popUntil(context, ModalRoute.withName('/'));
-                },
-                child: const Text('Place Order'),
-              ),
+            TextField(
+              decoration: const InputDecoration(labelText: 'Address'),
+            ),
+            TextField(
+              decoration: const InputDecoration(labelText: 'Phone'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Complete Order'),
             ),
           ],
         ),

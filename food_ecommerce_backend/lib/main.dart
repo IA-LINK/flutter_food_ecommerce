@@ -1,7 +1,8 @@
 // lib/main.dart
-
 import 'package:flutter/material.dart';
 import 'pages/home_screen.dart';
+import 'pages/cart_screen.dart';
+import 'pages/checkout_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +16,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Food Ecommerce',
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName, // now works
+      initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (_) => const HomeScreen(),
-        // Add other routes here
+        CartScreen.routeName: (_) => const CartScreen(),
+        CheckoutScreen.routeName: (_) => const CheckoutScreen(),
       },
     );
   }
